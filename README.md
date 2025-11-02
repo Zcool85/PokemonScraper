@@ -4,7 +4,7 @@ Tool for downloading and organizing Pokémon data from various online sources.
 
 ## Features
 
-- Download Pokémon images in all languages
+- Download Pokémon images in all languages from [TCGdex](https://tcgdex.dev)
 - Organize data into structured directories to facilitate Core ML model training
 
 ## Prerequisites
@@ -50,9 +50,9 @@ Example structure:
 
 ```
 PokemonTrainingData/
-├── en_me01_02_Bulbasaur/image1.png
-├── en_me01_15_Charmander/image1.png
-├── jp_me01_153_フシギダネ/image1.png
+├── en_me01_02_Bulbasaur/image.png
+├── en_me01_15_Charmander/image.png
+├── jp_me01_153_フシギダネ/image.png
 └── ...
 ```
 
@@ -197,14 +197,8 @@ Return headers :
 < content-length: 631131
 ```
 
-Pour l'élément à récupérer, ajouter :
+For each card to download, add :
 - If-None-Match: etag
 - If-Modified-Since: last-modified
-Si HTTP status code 304 Not Modified, ne pas retélécharger l'image.
-
-
-
-
-
-
+If HTTP status code is 304 Not Modified, don't download image.
 
