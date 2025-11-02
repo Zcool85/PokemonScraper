@@ -1,40 +1,12 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <format>
 #include <execution>
 #include <curl/curl.h>
 #include "DatabaseManager.h"
 #include "DownloadManager.h"
 #include "rapidjson/document.h"
-
-#include <future>
-
-template<typename Iterator, typename Func>
-void parallelForWithThreadCount(Iterator begin, Iterator end, Func func, size_t numThreads) {
-    size_t totalSize = std::distance(begin, end);
-    size_t chunkSize = (totalSize + numThreads - 1) / numThreads;
-
-    std::vector<std::future<void>> futures;
-
-    for (size_t i = 0; i < numThreads; ++i) {
-        auto chunkBegin = begin;
-        std::advance(chunkBegin, std::min(i * chunkSize, totalSize));
-
-        auto chunkEnd = begin;
-        std::advance(chunkEnd, std::min((i + 1) * chunkSize, totalSize));
-
-        if (chunkBegin == chunkEnd) break;
-
-        futures.push_back(std::async(std::launch::async, [chunkBegin, chunkEnd, func]() {
-            std::for_each(chunkBegin, chunkEnd, func);
-        }));
-    }
-
-    // Attendre que tous les threads finissent
-    for (auto& future : futures) {
-        future.wait();
-    }
-}
 
 auto setupDatabase(const DatabaseManager& database_manager) -> bool
 {

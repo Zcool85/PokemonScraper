@@ -18,6 +18,15 @@ sudo apt-get install libsqlite3-dev
 brew install sqlite3
 ```
 
+Add libcurl:
+
+```bash
+# On Ubuntu/Debian
+sudo apt-get install libcurl4-openssl-dev
+# On macOS
+brew install curl
+```
+
 ## Usage
 
 Build and run the scraper:
