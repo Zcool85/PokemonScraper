@@ -1,8 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <format>
-#include <execution>
+#include <fmt/format.h>
 #include <curl/curl.h>
 #include "DatabaseManager.h"
 #include "DownloadManager.h"
@@ -62,7 +61,7 @@ auto refreshAllSets(const DatabaseManager& database_manager) -> void
 
     for (const auto & languages = database_manager.getAllLanguages(); auto & language : languages)
     {
-        std::string url = std::format("https://api.tcgdex.net/v2/{0}/sets", language.id);
+        std::string url = fmt::format("https://api.tcgdex.net/v2/{0}/sets", language.id);
         std::string json_data;
         std::string etag;
         std::string last_update;
@@ -138,7 +137,7 @@ auto refreshAllCards(const DatabaseManager& database_manager) -> void
 
             std::cout << "  Find cards for set " << set_id << "..." << std::endl;
 
-            std::string url = std::format("https://api.tcgdex.net/v2/{0}/sets/{1}", all_sets_content.language_id, set_id);
+            std::string url = fmt::format("https://api.tcgdex.net/v2/{0}/sets/{1}", all_sets_content.language_id, set_id);
             std::string json_data;
             std::string etag;
             std::string last_update;
@@ -238,8 +237,8 @@ auto downloadCards(const DatabaseManager& database_manager) -> void
 
             std::string image = card["image"].GetString();
 
-            std::string url = std::format("{0}/high.jpg", image);
-            std::string destination = std::format("PokemonTrainingData/{0}_{1}_{2}_{3}/image.jpg", all_cards_content.language_id, all_cards_content.set_id, local_id, name);
+            std::string url = fmt::format("{0}/high.jpg", image);
+            std::string destination = fmt::format("PokemonTrainingData/{0}_{1}_{2}_{3}/image.jpg", all_cards_content.language_id, all_cards_content.set_id, local_id, name);
             std::string etag;
             std::string last_update;
             bool has_change;

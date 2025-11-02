@@ -21,6 +21,13 @@ FetchContent_MakeAvailable(rapidjson)
 
 message(STATUS "RapidJSON source dir: ${rapidjson_SOURCE_DIR}")
 
+FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY https://github.com/fmtlib/fmt
+        GIT_TAG        12.1.0
+)
+FetchContent_MakeAvailable(fmt)
+
 find_package(SQLite3 REQUIRED)
 
 find_package(CURL REQUIRED)
@@ -38,4 +45,5 @@ target_include_directories(PokemonScraper PRIVATE
 target_link_libraries(PokemonScraper PRIVATE
         SQLite::SQLite3
         CURL::libcurl
+        fmt::fmt
 )

@@ -130,6 +130,8 @@ auto DownloadManager::downloadFile(const std::string& url, const std::string& de
         return false;
     }
 
+    auto add_headers = std::filesystem::exists(destination);
+
     FILE *file = fopen(destination.c_str(), "wb");
 
     if (!file) {
@@ -154,14 +156,17 @@ auto DownloadManager::downloadFile(const std::string& url, const std::string& de
 
     curl_slist *list = nullptr;
 
-    if (!etag.empty()) {
-        const std::string ifNoneMatch = "If-None-Match: " + etag;
-        list = curl_slist_append(list, ifNoneMatch.c_str());
-    }
+    if (add_headers)
+    {
+        if (!etag.empty()) {
+            const std::string ifNoneMatch = "If-None-Match: " + etag;
+            list = curl_slist_append(list, ifNoneMatch.c_str());
+        }
 
-    if (!last_update.empty()) {
-        const std::string ifModifiedSince = "If-Modified-Since: " + last_update;
-        list = curl_slist_append(list, ifModifiedSince.c_str());
+        if (!last_update.empty()) {
+            const std::string ifModifiedSince = "If-Modified-Since: " + last_update;
+            list = curl_slist_append(list, ifModifiedSince.c_str());
+        }
     }
 
     if (list) {
