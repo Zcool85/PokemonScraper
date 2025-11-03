@@ -38,7 +38,7 @@ add_executable(PokemonScraper main.cpp
         DownloadManager.cpp
         DownloadManager.h)
 
-target_include_directories(PokemonScraper PRIVATE
+target_include_directories(PokemonScraper SYSTEM PRIVATE
         ${rapidjson_SOURCE_DIR}/include
 )
 
