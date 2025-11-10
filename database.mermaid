@@ -1,35 +1,6 @@
 erDiagram
-    %% All possible languages for cards and sets
-    languages {
-        text id PK
-        text name
-    }
-
-    %% All possible sets for each languages
-    %% URL called : https://api.tcgdex.net/v2/{language_id}/sets
-    all_sets {
-        text language_id PK, FK
-        text etag
-        text last_updated
-        json content
-    }
-
-    languages ||--|{ all_sets : has
-
-    %% All possible cards for a set in each language
-    %% URL called : https://api.tcgdex.net/v2/{language_id}/sets/{set_id}
-    all_cards {
-        text language_id PK, FK
-        text set_id PK
-        text etag
-        text last_updated
-        json content
-    }
-
-    all_sets ||--|{ all_cards : has
-
-    %% All cards stored locally
-    cards {
+    %% All url metadata
+    uri_metadata {
         text uri PK
         text etag
         text last_updated

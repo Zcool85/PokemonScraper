@@ -1,11 +1,12 @@
 # PokemonScraper
 
-Tool for downloading and organizing Pokémon data from various online sources.
+Tool for downloading Pokémon card images from [TCGdex](https://tcgdex.dev).
 
 ## Features
 
 - Download Pokémon images in all languages from [TCGdex](https://tcgdex.dev)
-- Organize data into structured directories to facilitate Core ML model training
+- Only high resolution images are downloaded
+- Organize data into structured directories
 
 ## Prerequisites
 
@@ -38,21 +39,40 @@ cmake --build build
 ```
 
 The scraper will download Pokémon images and organize them into directories
-based on language and Pokémon name.
+based on language, set and Pokémon name.
 
 ## Directory Structure
 
-The downloaded images will be stored in the `PokemonTrainingData` directory.
-Then, within `PokemonTrainingData`, there will be subdirectories for each
-card with this pattern: `<language>_<setid>_<local_id>_<pokemon_name>/image.jpg`
+The downloaded images will be stored in the `data` directory.
+Then, within `data` folder, there will be one subdirectory for each languages.
+Inside each language directory, there will be subdirectories for each set,
+and within each set directory, the images will be named according to the
+card with this pattern: `<local_id>_<pokemon_name>.jpg`
 
 Example structure:
 
 ```
-PokemonTrainingData/
-├── en_me01_02_Bulbasaur/image.png
-├── en_me01_15_Charmander/image.png
-├── jp_me01_153_フシギダネ/image.png
+data/
+├── en
+│   ├── base1
+│   │   ├── 01_Bulbasaur.jpg
+│   │   ├── 04_Charmander.jpg
+│   │   └── ...
+│   ├── base2
+│   │   ├── 01_Squirtle.jpg
+│   │   ├── 10_Pikachu.jpg
+│   │   └── ...
+│   └── ...
+├── fr
+│   ├── base1
+│   │   ├── 01_Bulbizarre.jpg
+│   │   ├── 04_Salameche.jpg
+│   │   └── ...
+│   ├── base2
+│   │   ├── 01_Carapuce.jpg
+│   │   ├── 10_Pikachu.jpg
+│   │   └── ...
+│   └── ...
 └── ...
 ```
 

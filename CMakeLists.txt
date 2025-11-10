@@ -3,8 +3,9 @@ project(PokemonScraper)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# fetch latest rapidjson
 include(FetchContent)
+
+# fetch latest rapidjson
 FetchContent_Declare(
         rapidjson
         GIT_REPOSITORY https://github.com/Tencent/rapidjson.git
@@ -21,12 +22,22 @@ FetchContent_MakeAvailable(rapidjson)
 
 message(STATUS "RapidJSON source dir: ${rapidjson_SOURCE_DIR}")
 
+# fetch fmtlib
 FetchContent_Declare(
         fmt
         GIT_REPOSITORY https://github.com/fmtlib/fmt
         GIT_TAG        12.1.0
 )
 FetchContent_MakeAvailable(fmt)
+
+# fetch latest spdlog
+FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog
+        GIT_TAG        v1.16.0
+        GIT_SHALLOW    TRUE
+)
+FetchContent_MakeAvailable(spdlog)
 
 find_package(SQLite3 REQUIRED)
 
@@ -36,7 +47,9 @@ add_executable(PokemonScraper main.cpp
         DatabaseManager.cpp
         DatabaseManager.h
         DownloadManager.cpp
-        DownloadManager.h)
+        DownloadManager.h
+        Logs.cpp
+        Logs.h)
 
 target_include_directories(PokemonScraper SYSTEM PRIVATE
         ${rapidjson_SOURCE_DIR}/include
@@ -46,4 +59,5 @@ target_link_libraries(PokemonScraper PRIVATE
         SQLite::SQLite3
         CURL::libcurl
         fmt::fmt
+        spdlog
 )
