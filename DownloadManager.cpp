@@ -2,14 +2,13 @@
 // Created by Zéro Cool on 01/11/2025.
 //
 
-#include "DownloadManager.h"
-
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <filesystem>
 #include <curl/curl.h>
 
+#include "DownloadManager.h"
 #include "Logs.h"
 
 bool DownloadManager::m_initialized = false;

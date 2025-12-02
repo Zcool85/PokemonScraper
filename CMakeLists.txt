@@ -9,7 +9,7 @@ include(FetchContent)
 FetchContent_Declare(
         rapidjson
         GIT_REPOSITORY https://github.com/Tencent/rapidjson.git
-        GIT_TAG v1.1.0
+        GIT_TAG master
 )
 set(RAPIDJSON_BUILD_DOC OFF CACHE BOOL "" FORCE)
 set(RAPIDJSON_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
